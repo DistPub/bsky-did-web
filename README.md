@@ -24,7 +24,7 @@ didweb sign --privkey $PRIVKEY --iss did:web:alice.domain.tld --aud did:web:pds.
 
 # Or, you can directly call createAccount API if the above `didweb createAccount` does not work
 TOKEN=$(./didweb sign --privkey $PRIVKEY --iss did:web:did.example.com --aud did:web:pds.example.com --exp 180)
-curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN"  --header "Content-Type: application/json"   --data "{\"email\":\"youremail@outlook.com\", \"handle\":\"myhandle.xyz\", \"did\":\"did:web:alice.domain.tld\", \"password\":\"XXX_REPLACE_THIS_XXX\", \"inviteCode\":\"pds-invite-replace-this\"}"   "https://pds.example.com/xrpc/com.atproto.server.createAccount"
+curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN"  --header "Content-Type: application/json"   --data "{\"email\":\"youremail@outlook.com\", \"handle\":\"alice.domain.tld\", \"did\":\"did:web:alice.domain.tld\", \"password\":\"XXX_REPLACE_THIS_XXX\", \"inviteCode\":\"pds-invite-replace-this\"}"   "https://pds.example.com/xrpc/com.atproto.server.createAccount"
 
 
 # now you will get new JWT token to complete registration
