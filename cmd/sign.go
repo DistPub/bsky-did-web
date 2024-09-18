@@ -43,12 +43,22 @@ func sign(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	type CustomClaims struct {
+		Lexicon string `json:"lxm"`
+		jwt.RegisteredClaims
+	}
+
 	jwt.MarshalSingleStringAsArray = false
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.RegisteredClaims{
-		Issuer:    iss,
-		Audience:  jwt.ClaimStrings{aud},
-		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exp) * time.Second)),
-	})
+	claims := CustomClaims{
+		"com.atproto.server.createAccount",
+		jwt.RegisteredClaims{
+			Issuer:    iss,
+			Audience:  jwt.ClaimStrings{aud},
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exp) * time.Second)),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
 
 	tokenString, err := token.SignedString(privkey)
 	if err != nil {
