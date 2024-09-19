@@ -40,4 +40,9 @@ curl --verbose  --fail   --silent   --show-error   --request GET --header "Autho
 
 # activateAccount
 curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN" https://pds.example.com/xrpc/com.atproto.server.activateAccount
+
+# now, your account has been activated.
+# Upload /.well-known/atproto-did file with your DID included, or
+# Add DNS TXT record (prefix "_atproto." + your handle) including the did
+# so that the client can validate your did:web account.
 ```
