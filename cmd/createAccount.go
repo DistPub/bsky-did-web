@@ -25,6 +25,7 @@ var createAccountCmd = &cobra.Command{
 
 var (
 	pds        string
+	did        string
 	invideCode string
 	email      string
 	password   string
@@ -35,10 +36,12 @@ func init() {
 
 	createAccountCmd.Flags().StringVar(&pds, "pds", "", "PDS URL")
 	createAccountCmd.MarkFlagRequired("pds")
+	createAccountCmd.Flags().StringVar(&did, "did", "", "existing DID to use")
+	createAccountCmd.MarkFlagRequired("did")
 	createAccountCmd.Flags().StringVar(&handle, "handle", "", "Your handle")
 	createAccountCmd.MarkFlagRequired("handle")
 	createAccountCmd.Flags().StringVar(&invideCode, "invite", "", "Invite code")
-	createAccountCmd.MarkFlagRequired("invite")
+	//createAccountCmd.MarkFlagRequired("invite")
 	createAccountCmd.Flags().StringVar(&email, "email", "", "Initial email")
 	createAccountCmd.MarkFlagRequired("email")
 	createAccountCmd.Flags().StringVar(&password, "password", "", "Initial password")
@@ -55,15 +58,14 @@ func createAccount(cmd *cobra.Command, args []string) error {
 
 	client := &xrpc.Client{
 		Client: cliutil.NewHttpClient(),
-		Host:   hostname,
+		Host:   pds,
 		Auth: &xrpc.AuthInfo{
 			AccessJwt: jwtToken,
 			Handle:    handle,
-			Did:       "did:web:" + handle,
+			Did:       did,
 		},
 	}
 
-	did := "did:web:" + handle
 	acc, err := comatproto.ServerCreateAccount(context.TODO(), client, &comatproto.ServerCreateAccount_Input{
 		Did:        &did,
 		Email:      &email,
