@@ -28,7 +28,7 @@ didweb sign --privkey $PRIVKEY --iss did:web:alice.domain.tld --aud did:web:pds.
 
 # Or, you can directly call createAccount API if the above `didweb createAccount` does not work
 TOKEN=$(./didweb sign --privkey $PRIVKEY --iss did:web:alice.domain.tld --aud did:web:pds.example.com --exp 180)
-curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN"  --header "Content-Type: application/json"   --data "{\"email\":\"youremail@outlook.com\", \"handle\":\"alice.domain.tld\", \"did\":\"did:web:the.realdid.global\", \"password\":\"setyourpassword\", \"inviteCode\":\"the-invite-code\"}"   "https://pds.example.com/xrpc/com.atproto.server.createAccount"
+curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN"  --header "Content-Type: application/json"   --data "{\"email\":\"youremail@outlook.com\", \"handle\":\"alice.domain.tld\", \"did\":\"did:web:alice.domain.tld\", \"password\":\"setyourpassword\", \"inviteCode\":\"the-invite-code\"}"   "https://pds.example.com/xrpc/com.atproto.server.createAccount"
 
 # the PDS will verify token by use public key from https://alice.domain.tld/.well-known/did.json, if pass, PDS will check invite code, if pass, new repo related to did:web:alice.domain.tld will create, also create private key and public key
 # you can change handle to different domain, for example: alice.me
