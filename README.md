@@ -32,7 +32,7 @@ curl --verbose  --fail   --silent   --show-error   --request POST --header "Auth
 
 # the PDS will verify token by use public key from https://alice.domain.tld/.well-known/did.json, if pass, PDS will check invite code, if pass, new repo related to did:web:alice.domain.tld will create, also create private key and public key
 # you can change handle to different domain, for example: alice.me make sure reference to real did:web account before call create account
-# content is: did:web:alice.domain.tld
+# content is: did=did:web:alice.domain.tld
 # Upload alice.me/.well-known/atproto-did file with content, or
 # Add DNS TXT record ("_atproto.alice.me") with content
 # so that the client can validate your did:web account.
