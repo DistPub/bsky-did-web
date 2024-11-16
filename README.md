@@ -31,7 +31,11 @@ TOKEN=$(./didweb sign --privkey $PRIVKEY --iss did:web:alice.domain.tld --aud di
 curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN"  --header "Content-Type: application/json"   --data "{\"email\":\"youremail@outlook.com\", \"handle\":\"alice.domain.tld\", \"did\":\"did:web:alice.domain.tld\", \"password\":\"setyourpassword\", \"inviteCode\":\"the-invite-code\"}"   "https://pds.example.com/xrpc/com.atproto.server.createAccount"
 
 # the PDS will verify token by use public key from https://alice.domain.tld/.well-known/did.json, if pass, PDS will check invite code, if pass, new repo related to did:web:alice.domain.tld will create, also create private key and public key
-# you can change handle to different domain, for example: alice.me
+# you can change handle to different domain, for example: alice.me make sure reference to real did:web account before call create account
+# content is: did:web:alice.domain.tld
+# Upload alice.me/.well-known/atproto-did file with content, or
+# Add DNS TXT record ("_atproto.alice.me") with content
+# so that the client can validate your did:web account.
 
 # now you will get new JWT token to complete registration
 TOKEN=accessJwt_value_from_response
@@ -49,9 +53,4 @@ curl --verbose  --fail   --silent   --show-error   --request GET --header "Autho
 curl --verbose  --fail   --silent   --show-error   --request POST --header "Authorization: Bearer $TOKEN" https://pds.example.com/xrpc/com.atproto.server.activateAccount
 
 # now, your account has been activated.
-# If you changed handle to different domain, make sure reference to real did:web account
-# content is: did:web:alice.domain.tld
-# Upload alice.me/.well-known/atproto-did file with content, or
-# Add DNS TXT record ("_atproto.alice.me") with content
-# so that the client can validate your did:web account.
 ```
